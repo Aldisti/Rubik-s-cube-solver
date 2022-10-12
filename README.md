@@ -1,4 +1,4 @@
-# Rubik-s-cube-solver
+# Rubiks cube solver
 With this program you can do many things.
 
 These are all the functions in RubiksCubeSolverAdvanced:
