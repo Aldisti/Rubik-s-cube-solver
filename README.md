@@ -30,4 +30,4 @@ all the other functions are the moves, them are a little wild but it works
 
 The ScramblesLoader is a function the creates/updates a list of scrambles using
 the site: https://ruwix.com/puzzle-scramble-generator. It gets 9 scrambles at
-a time, so you have to insert a multiple of 9 (don't ask why 9, it's just 9).
+a time, so you have to insert a multiple of 9 (don't ask why, it's just 9).
