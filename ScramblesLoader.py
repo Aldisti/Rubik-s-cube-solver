@@ -23,7 +23,7 @@ OPTIONS.add_argument('--profile-directory=Default')
 OPTIONS.add_argument("--disable-plugins-discovery")
 
 def scramble(n):
-    driver = webdriver.Chrome(executable_path = r"C:\Users\aless\OneDrive\Python\ProjectZ\chromedriver.exe", options = OPTIONS)
+    driver = webdriver.Chrome(executable_path = r"path\to\chromedriver", options = OPTIONS)
     wait = WebDriverWait(driver, 10)
 
     driver.get("https://ruwix.com/puzzle-scramble-generator/")
@@ -50,16 +50,17 @@ def scramble(n):
             moves += "\n"
             l.append(moves)
     try:
-        with open(r"C:\Users\aless\OneDrive\Python\ProjectZ\scrambles.txt", "r") as file:
+        with open(r"path\to\scrambles.txt", "r") as file:
             lines = file.readlines()
         l += lines
-        with open(r"C:\Users\aless\OneDrive\Python\ProjectZ\scrambles.txt", "w") as file:
+        with open(r"path\to\scrambles.txt", "w") as file:
             file.writelines(l)
     except FileNotFoundError:
-        with open(r"C:\Users\aless\OneDrive\Python\ProjectZ\SWP.txt", "x") as file:
+        with open(r"path\to\SWP.txt", "x") as file:
             file.writelines(l)
-        print("""Rinomina il file "SWP.txt" in "scrambles.txt" altrimenti non sarai in grado di usare gli scramble generati""")
+        print("""Rename the SWP.txt file in scrambles.txt""")
     driver.close()
+
 t = time()
 scramble(9)
 print(time() - t)

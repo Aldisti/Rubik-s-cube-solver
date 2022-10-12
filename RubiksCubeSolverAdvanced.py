@@ -400,11 +400,11 @@ def solve():
             break
 
 def scramble():
-    with open(r"C:\Users\aless\OneDrive\Python\ProjectZ\scrambles.txt", "r") as f:
+    with open(r"path\to\scrambles.txt", "r") as f:
         lines = f.readlines()
     line = lines[0]
     lines.append(lines.pop(0))
-    with open(r"C:\Users\aless\OneDrive\Python\ProjectZ\scrambles.txt", "w") as f:
+    with open(r"path\to\scrambles.txt", "w") as f:
         f.writelines(lines)
     return (line[:-1])
 
@@ -473,16 +473,56 @@ def showCube():
             s += WHITE[x][y] + "  " + Reset
         print(s)
 
+def play():
+    global MOVES
+    moves = ""
+
+    while True:
+        print("""Le mosse disponibili sono le seguenti (e i loro rispettivi primi): R, L, U, D, F, B, M, E, S, r, f, d
+Per uscire dal programma inserire: -1
+Per visualizzare il cubo inserire: 0
+Per visualizzare le mosse fatte: 1
+Per resettare il cubo inserire: 2
+Per risolvere il cubo inserire: 3
+Per tornare indietro inserire: 8""")
+        choice = str(input("Inserire un valore: ")).replace("'", "1")
+        if (choice == "-1"):
+            print("Pulisco la memoria...")
+            # free(all)
+            print("Chiudo il programma...")
+            quit()
+        elif (choice == "0"):
+            showCube()
+        elif (choice == "8"):
+            break
+        elif (choice == "1"):
+            print(moves.strip())
+        elif (choice == "2"):
+            reset()
+            moves = ""
+        elif (choice == "3"):
+            solve()
+            print(f"Algoritmo trovato: {''.join(i + ' ' for i in MOVES).strip()}")
+            print(f"Numero mosse: {len(MOVES)}")
+            moves = 
+        else:
+            try:
+                globals()[choice]()
+                moves += choice.replace("1", "'") + " "
+            except KeyError:
+                print(red + "Valore inserito non valido!!!" + Reset)
+
 def home():
     global MOVES
 
     while True:
         print("""
-0: mischia il cubo e lo risolve
-1: entra nella modalità play
-2: resetta tutte le variabili globali
-3: mostra il cubo
-4: esci dal programma""")
+0: scramble the cube and solve it
+1: enter play mode
+2: resets the cube and all the global variables
+3: shows the cube
+4: quit the program
+""")
         try:
             choice = int(input("Inserire un valore: "))
         except ValueError:
@@ -516,42 +556,5 @@ def home():
         else:
             print(red + "Inserire un valore valido!!!" + Reset)
 
-def play():
-    global MOVES
-    moves = ""
-
-    while True:
-        print("""Le mosse disponibili sono le seguenti (e i loro rispettivi primi): R, L, U, D, F, B, M, E, S, r, f, d
-Per uscire dal programma inserire: -1
-Per visualizzare il cubo inserire: 0
-Per visualizzare le mosse fatte: 1
-Per resettare il cubo inserire: 2
-Per risolvere il cubo inserire: 3
-Per tornare indietro inserire: 8""")
-        choice = str(input("Inserire un valore: ")).replace("'", "1")
-        if (choice == "-1"):
-            print("Pulisco la memoria...")
-            # free(all)
-            print("Chiudo il programma...")
-            quit()
-        elif (choice == "0"):
-            showCube()
-        elif (choice == "8"):
-            break
-        elif (choice == "1"):
-            print(moves.strip())
-        elif (choice == "2"):
-            reset()
-        elif (choice == "3"):
-            solve()
-            print(f"Algoritmo trovato: {''.join(i + ' ' for i in MOVES).strip()}")
-            print(f"Numero mosse: {len(MOVES)}")
-        else:
-            try:
-                globals()[choice]()
-                moves += choice.replace("1", "'") + " "
-            except KeyError:
-                print(red + "Valore inserito non valido!!!" + Reset)
 reset()
-#showCube()
 home()
