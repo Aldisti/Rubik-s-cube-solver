@@ -504,7 +504,7 @@ Per tornare indietro inserire: 8""")
             solve()
             print(f"Algoritmo trovato: {''.join(i + ' ' for i in MOVES).strip()}")
             print(f"Numero mosse: {len(MOVES)}")
-            moves = 
+            moves = ""
         else:
             try:
                 globals()[choice]()
