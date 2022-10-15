@@ -10,7 +10,7 @@ home() is the function that allows you to manage everything
 3: shows the cube
 4: quit the program
 
-play() is the function that allows you to play with the cube by inserting the name of the moves (R, L, U, D, F, B, M, E, S, r, f, d)
+play() is the function that allows you to play with the cube by inserting the name of the moves (R, L, U, D, F, B, M, E, S, r, f, d)\n
 -1: quit the program
 0: shows the cube
 1: shows all the moves inserted by the user
@@ -31,3 +31,8 @@ all the other functions are the moves, them are a little wild but it works
 The ScramblesLoader is a function the creates/updates a list of scrambles using
 the site: https://ruwix.com/puzzle-scramble-generator. It gets 9 scrambles at
 a time, so you have to insert a multiple of 9 (don't ask why, it's just 9).
+
+I tested the "algorithm" with over than 190000 different scrambles and worked all the times.
+The average of the moves necessary to solve the cube is 161, they are so many due to some choices regarding the algorithm.I state that
+the program should also work with the cross of all colors so I had to add some steps. I also set the program to solve the cube without
+rotating it and then other moves were added. Finally for the F2L I had to use the layer by layer method given the complexity of the CFOP.
