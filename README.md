@@ -10,7 +10,7 @@ home() is the function that allows you to manage everything
 3: shows the cube
 4: quit the program
 
-play() is the function that allows you to play with the cube by inserting the name of the moves (R, L, U, D, F, B, M, E, S, r, f, d)\n
+play() is the function that allows you to play with the cube by inserting the name of the moves (R, L, U, D, F, B, M, E, S, r, f, d)
 -1: quit the program
 0: shows the cube
 1: shows all the moves inserted by the user
