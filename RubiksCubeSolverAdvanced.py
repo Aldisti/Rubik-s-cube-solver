@@ -215,6 +215,7 @@ def fromFrontToCross():
 
 def solve():
     global MOVES
+
     def PLL():
         # this is the PLL and it's a simplified one
         # in the first while cycle i make sure the all the corners are at the correct position,
