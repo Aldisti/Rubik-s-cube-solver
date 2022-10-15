@@ -33,7 +33,6 @@ def L():
     GREEN[0][0], YELLOW[0][0], BLUE[2][2], WHITE[0][0] = YELLOW[0][0], BLUE[2][2], WHITE[0][0], GREEN[0][0]
     GREEN[1][0], YELLOW[1][0], BLUE[1][2], WHITE[1][0] = YELLOW[1][0], BLUE[1][2], WHITE[1][0], GREEN[1][0]
     GREEN[2][0], YELLOW[2][0], BLUE[0][2], WHITE[2][0] = YELLOW[2][0], BLUE[0][2], WHITE[2][0], GREEN[2][0]
-    # ruoto il centro rosso in senso orario
     clockwiseRotation(RED)
 
 def L1():
@@ -50,7 +49,6 @@ def U():
     MOVES.append("U")
 
     GREEN[0], ORANGE[0], BLUE[0], RED[0] = ORANGE[0], BLUE[0], RED[0], GREEN[0]
-    # ruoto il centro bianco in senso orario
     clockwiseRotation(YELLOW)
 
 def U1():
@@ -65,7 +63,6 @@ def D():
     MOVES.append("D")
 
     GREEN[2], RED[2], BLUE[2], ORANGE[2] = RED[2], BLUE[2], ORANGE[2], GREEN[2]
-    # ruoto il centro giallo in senso orario
     clockwiseRotation(WHITE)
 
 def D1():
@@ -82,7 +79,6 @@ def F():
     YELLOW[2][0], RED[2][2], WHITE[0][2], ORANGE[0][0] = RED[2][2], WHITE[0][2], ORANGE[0][0], YELLOW[2][0]
     YELLOW[2][1], RED[1][2], WHITE[0][1], ORANGE[1][0] = RED[1][2], WHITE[0][1], ORANGE[1][0], YELLOW[2][1]
     YELLOW[2][2], RED[0][2], WHITE[0][0], ORANGE[2][0] = RED[0][2], WHITE[0][0], ORANGE[2][0], YELLOW[2][2]
-    # ruoto il centro verde in senso orario
     clockwiseRotation(GREEN)
 
 def F1():
@@ -101,7 +97,6 @@ def B():
     YELLOW[0][0], ORANGE[0][2], WHITE[2][2], RED[2][0] = ORANGE[0][2], WHITE[2][2], RED[2][0], YELLOW[0][0]
     YELLOW[0][1], ORANGE[1][2], WHITE[2][1], RED[1][0] = ORANGE[1][2], WHITE[2][1], RED[1][0], YELLOW[0][1]
     YELLOW[0][2], ORANGE[2][2], WHITE[2][0], RED[0][0] = ORANGE[2][2], WHITE[2][0], RED[0][0], YELLOW[0][2]
-    # ruoto il centro verde in senso orario
     clockwiseRotation(BLUE)
 
 def B1():
@@ -221,7 +216,9 @@ def fromFrontToCross():
 def solve():
     global MOVES
     def PLL():
-        # controllo che tutti gli angoli siano corretti
+        # this is the PLL and it's a simplified one
+        # in the first while cycle i make sure the all the corners are at the correct position,
+        # i do this with 2 simple algorithm and 4 advanced, but it should work with just the 2 ones
         while (not (GREEN[0][0] == GREEN[0][2] and ORANGE[0][0] == ORANGE[0][2] and BLUE[0][0] == BLUE[0][2] and RED[0][0] == RED[0][2])):
             if (RED[0][0] == RED[0][2] and RED[0][1] != RED[0][0] and (GREEN[0][0] != GREEN[0][2] or BLUE[0][0] != BLUE[0][2])):
                 sexyMove(); R1(); F(); R(); R(); U1(); R1(); U1(); R(); U(); R1(); F1()
@@ -235,7 +232,7 @@ def solve():
                 if (RED[0][0] == RED[0][2] and ORANGE[0][0] != ORANGE[0][2]):
                     sexyMove(); R1(); F(); R(); R(); U1(); R1(); U1(); R(); U(); R1(); F1()
                 else: U()
-        # è ora degli spigoli
+        # in the 2nd while cycle i check the edges and to do this i use 4 different algorithm (i don't know how to explain them :)
         while (not (GREEN[0][0] == GREEN[0][1] == GREEN[0][2] and ORANGE[0][0] == ORANGE[0][1] == ORANGE[0][2]
                 and BLUE[0][0] == BLUE[0][1] == BLUE[0][2] and RED[0][0] == RED[0][1] == RED[0][2])):
             if (BLUE[0][0] == BLUE[0][1] == BLUE[0][2] and GREEN[0][1] == ORANGE[0][0]):
@@ -248,10 +245,11 @@ def solve():
                 M(); M(); U(); M(); M(); U(); M(); U(); U(); M(); M(); U(); U(); M()
             else: U()
         while (GREEN[0][1] != GREEN[1][1]): U()
-        #print("Cube solved correctly")
 
-    def OLL(): # come lo farei io, ma "più peggio"
-        # controllo che ci sia la croce gialla
+    def OLL(): # as I would, but "worse"
+        # the OLL is really simplified
+        # in the first while cycle i make the yellow cross (or whatever the color is)
+        # to do that i analyze 3 different cases: the yellow centre and nothing else, the L and the line
         while (not (YELLOW[0][1] == YELLOW[1][0] == YELLOW[2][1] == YELLOW[1][2])):
             if (YELLOW[0][1] != YELLOW[1][1] and YELLOW[1][0] != YELLOW[1][1] and YELLOW[2][1] != YELLOW[1][1] and YELLOW[1][2] != YELLOW[1][1]):
                 if (GREEN[0][1] == BLUE[0][1] == YELLOW[1][1] and ORANGE[0] == RED[0]):
@@ -266,7 +264,8 @@ def solve():
             elif (YELLOW[1][0] == YELLOW[1][1] == YELLOW[0][1]):
                 F(); sexyMove(); sexyMove(); F1()
             else: U()
-        # completo l'OLL (la faccia gialla)
+        # with the second while cycle i complete the yellow face
+        # to do it i use 7 different algorithms
         while (not (YELLOW[0][0] == YELLOW[2][0] == YELLOW[2][2] == YELLOW[0][2])):
             if (GREEN[0][0] == GREEN[0][2] == BLUE[0][0] == BLUE[0][2] == YELLOW[1][1]):
                 R(); U(); U(); R1(); U1(); sexyMove(); R(); U1(); R1()
@@ -285,8 +284,10 @@ def solve():
             else: U()
         PLL()
 
-    def F2L(): # questo è l'F2L più brutto della storia :)
-        # angoli
+    def F2L(): # this is the worst F2L ever :)
+        # this is the first layer
+        # with the first while cycle i insert the corners at their right place
+        # otherwise i take them out
         while (not (WHITE[0] == WHITE[1] == WHITE[2] and GREEN[2][0] == GREEN[2][1] == GREEN[2][2]and ORANGE[2][0] == ORANGE[2][1] == ORANGE[2][2] and BLUE[2][0] == BLUE[2][1] == BLUE[2][2])):
             while (GREEN[2][2] == GREEN[2][1] and ORANGE[2][0] == ORANGE[2][1]): D()
             if (GREEN[0][2] == WHITE[1][1]):
@@ -304,7 +305,8 @@ def solve():
                     R(); U(); R1()
                 U()
         while (GREEN[2][1] != GREEN[1][1]): D()
-        # spigoli
+        # with the second while cycle i insert the edges at their right place
+        # otherwise i take them out
         while (not (GREEN[1][0] == GREEN[1][1] == GREEN[1][2] and ORANGE[1][0] == ORANGE[1][1] == ORANGE[1][2] and BLUE[1][0] == BLUE[1][1] == BLUE[1][2] and RED[1][0] == RED[1][1] == RED[1][2])):
             if (GREEN[1][2] == GREEN[1][1] and ORANGE[1][0] == ORANGE[1][1]): E()
             if (GREEN[0][1] != YELLOW[1][1] and YELLOW[2][1] != YELLOW[1][1]):
@@ -326,7 +328,7 @@ def solve():
         while (GREEN[1][1] != GREEN[2][1]): E()
         OLL()
 
-    def cross():
+    def cross(): # this cross algorithm is really orrible
         while (WHITE[0][1] != WHITE[1][1] or WHITE[1][0] != WHITE[1][1] or WHITE[1][2] != WHITE[1][1] or WHITE[2][1] != WHITE[1][1]):
             if (GREEN[1][2] == WHITE[1][1] or YELLOW[1][2] == WHITE[1][1] or BLUE[1][0] == WHITE[1][1]):
                 while (WHITE[1][2] == WHITE[1][1]): D()
@@ -357,7 +359,7 @@ def solve():
                 while (GREEN[1][1] != green): E()
                 while (GREEN[2][1] != green): D()
             else: pass
-        # controllo che la croce sia giusta
+        # i make sure that all the colors are correct
         cs = [green, orange, blue, red]
         while (GREEN[2][1] != GREEN[1][1] or RED[2][1] != RED[1][1] or BLUE[2][1] != BLUE[1][1] or ORANGE[2][1] != ORANGE[1][1]):
             if (cs.index(GREEN[2][1]) - cs.index(BLUE[2][1]) == -2
@@ -394,10 +396,8 @@ def solve():
             MOVES[i] = "&"
             MOVES[i + 1] = "&"
     for _ in range(len(MOVES)):
-        try:
-            MOVES.remove("&")
-        except ValueError:
-            break
+        try: MOVES.remove("&")
+        except ValueError: break
 
 def scramble():
     with open(r"path\to\scrambles.txt", "r") as f:
